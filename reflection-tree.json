@@ -1,0 +1,443 @@
+[
+  {
+    "id": "START",
+    "type": "start",
+    "text": "Good evening. Let’s take a moment to reflect on your day.",
+    "next": "A1_Q1"
+  },
+
+  {
+    "id": "A1_Q1",
+    "type": "question",
+    "text": "How would you describe your day in one word?",
+    "options": ["Productive", "Mixed", "Tough", "Frustrating"],
+    "next": "A1_D1"
+  },
+
+  {
+    "id": "A1_D1",
+    "type": "decision",
+    "rules": {
+      "Productive": "A1_Q2_HIGH",
+      "Mixed": "A1_Q2_HIGH",
+      "Tough": "A1_Q2_LOW",
+      "Frustrating": "A1_Q2_LOW"
+    }
+  },
+
+  {
+    "id": "A1_Q2_HIGH",
+    "type": "question",
+    "text": "When things went well today, what made the biggest difference?",
+    "options": ["My preparation", "My decisions", "Team support", "Luck"],
+    "signals": {
+      "My preparation": "axis1_internal",
+      "My decisions": "axis1_internal",
+      "Team support": "axis1_external",
+      "Luck": "axis1_external"
+    },
+    "next": "A1_Q2_DECISION"
+  },
+
+  {
+    "id": "A1_Q2_LOW",
+    "type": "question",
+    "text": "When things didn’t go as planned, what was your first instinct?",
+    "options": ["Tried to fix it", "Looked for help", "Blamed situation", "Felt stuck"],
+    "signals": {
+      "Tried to fix it": "axis1_internal",
+      "Looked for help": "axis1_internal",
+      "Blamed situation": "axis1_external",
+      "Felt stuck": "axis1_external"
+    },
+    "next": "A1_Q2_DECISION"
+  },
+
+  {
+    "id": "A1_Q2_DECISION",
+    "type": "decision",
+    "rules": {
+      "My preparation": "A1_INTERNAL_FOLLOWUP",
+      "My decisions": "A1_INTERNAL_FOLLOWUP",
+      "Team support": "A1_EXTERNAL_FOLLOWUP",
+      "Luck": "A1_EXTERNAL_FOLLOWUP",
+
+      "Tried to fix it": "A1_INTERNAL_FOLLOWUP",
+      "Looked for help": "A1_INTERNAL_FOLLOWUP",
+      "Blamed situation": "A1_EXTERNAL_FOLLOWUP",
+      "Felt stuck": "A1_EXTERNAL_FOLLOWUP"
+    }
+  },
+  {
+    "id": "A1_INTERNAL_FOLLOWUP",
+    "type": "question",
+    "text": "That seems to have worked well. What part of your approach made the difference?",
+    "options": [
+      "Planned ahead",
+      "Made a better decision in the moment",
+      "Adjusted quickly",
+      "Stayed consistent"
+    ],
+    "signals": {
+      "Planned ahead": "axis1_internal",
+      "Made a better decision in the moment": "axis1_internal",
+      "Adjusted quickly": "axis1_internal",
+      "Stayed consistent": "axis1_internal"
+    },
+    "next": "A1_Q3"
+  },
+
+  {
+    "id": "A1_EXTERNAL_FOLLOWUP",
+    "type": "question",
+    "text": "Even if a lot depended on others, where did your response still matter?",
+    "options": [
+      "In how I responded",
+      "In how I communicated",
+      "In how I adapted",
+      "I didn’t think I had much control"
+    ],
+    "signals": {
+      "In how I responded": "axis1_internal",
+      "In how I communicated": "axis1_internal",
+      "In how I adapted": "axis1_internal",
+      "I didn’t think I had much control": "axis1_external"
+    },
+    "next": "A1_Q3"
+  },
+
+  {
+    "id": "A1_Q3",
+    "type": "question",
+    "text": "Given that, where did you still have some control?",
+    "options": ["In my actions", "In my mindset", "Very little", "None"],
+    "signals": {
+      "In my actions": "axis1_internal",
+      "In my mindset": "axis1_internal",
+      "Very little": "axis1_external",
+      "None": "axis1_external"
+    },
+    "next": "A1_Q4"
+  },
+
+  {
+    "id": "A1_Q4",
+    "type": "question",
+    "text": "In one moment today, what choice did you consciously make?",
+    "options": ["Changed my approach", "Stayed calm", "Followed others", "Avoided acting"],
+    "signals": {
+      "Changed my approach": "axis1_internal",
+      "Stayed calm": "axis1_internal",
+      "Followed others": "axis1_external",
+      "Avoided acting": "axis1_external"
+    },
+    "next": "A1_R"
+  },
+
+  {
+    "id": "A1_R",
+    "type": "reflection",
+    "text": "You described your day as '{A1_Q1}'. It wasn’t completely one-sided — there were moments you influenced, and moments you didn’t. Seeing both clearly is where real control starts to grow.",
+    "next": "BRIDGE_1_2"
+  },
+
+  {
+    "id": "BRIDGE_1_2",
+    "type": "bridge",
+    "text": "Now let’s shift from how things happened to what you contributed today.",
+    "next": "A1_BRANCH"
+  },
+
+  {
+    "id": "A1_BRANCH",
+    "type": "decision",
+    "rules": {
+      "internal": "A2_Q1_STRONG",
+      "external": "A2_Q1_REFLECT",
+      "mixed": "A2_Q1_REFLECT"
+    }
+  },
+
+  {
+    "id": "A2_Q1_STRONG",
+    "type": "question",
+    "text": "Where did you go slightly beyond your role today?",
+    "options": [
+      "Helped someone",
+      "Improved something",
+      "Shared knowledge",
+      "Stayed within my tasks"
+    ],
+    "signals": {
+      "Helped someone": "axis2_contribution",
+      "Improved something": "axis2_contribution",
+      "Shared knowledge": "axis2_contribution",
+      "Stayed within my tasks": "axis2_neutral"
+    },
+    "next": "A2_BRANCH"
+  },
+
+  {
+    "id": "A2_Q1_REFLECT",
+    "type": "question",
+    "text": "Looking back, where could you have contributed a bit more today?",
+    "options": [
+      "Helping others",
+      "Taking initiative",
+      "Sharing ideas",
+      "Not sure"
+    ],
+    "signals": {
+      "Helping others": "axis2_contribution",
+      "Taking initiative": "axis2_contribution",
+      "Sharing ideas": "axis2_contribution",
+      "Not sure": "axis2_entitlement"
+    },
+    "next": "A2_BRANCH"
+  },
+
+  {
+    "id": "A2_BRANCH",
+    "type": "decision",
+    "rules": {
+      "contribution": "A2_Q2_CONTRIB",
+      "neutral": "A2_Q2_NEUTRAL",
+      "entitlement": "A2_Q2_ENTITLE"
+    }
+  },
+
+  {
+    "id": "A2_Q2_CONTRIB",
+    "type": "question",
+    "text": "That’s interesting. Where did your effort make the most difference?",
+    "options": [
+      "Helping someone directly",
+      "Improving something",
+      "Supporting the team",
+      "Getting things done"
+    ],
+    "signals": {
+      "Helping someone directly": "axis2_contribution",
+      "Improving something": "axis2_contribution",
+      "Supporting the team": "axis2_contribution",
+      "Getting things done": "axis2_neutral"
+    },
+    "next": "A2_Q3"
+  },
+
+  {
+    "id": "A2_Q2_NEUTRAL",
+    "type": "question",
+    "text": "Through the day, what were you mostly focused on?",
+    "options": [
+      "Finishing tasks",
+      "Balancing work and effort",
+      "Helping when needed",
+      "Just getting through the day"
+    ],
+    "signals": {
+      "Finishing tasks": "axis2_neutral",
+      "Balancing work and effort": "axis2_neutral",
+      "Helping when needed": "axis2_contribution",
+      "Just getting through the day": "axis2_entitlement"
+    },
+    "next": "A2_Q3"
+  },
+
+ {
+    "id": "A2_Q2_ENTITLE",
+    "type": "question",
+    "text": "What made it harder for you to contribute more today?",
+    "options": [
+      "Didn’t think about it at the time",
+      "Was focused on my own tasks",
+      "Didn’t feel motivated",
+      "Felt it wouldn’t matter"
+    ],
+    "signals": {
+      "Didn’t think about it at the time": "axis2_neutral",
+      "Was focused on my own tasks": "axis2_neutral",
+      "Didn’t feel motivated": "axis2_entitlement",
+      "Felt it wouldn’t matter": "axis2_entitlement"
+    },
+    "next": "A2_Q3"
+  },
+
+  {
+    "id": "A2_Q3",
+    "type": "question",
+    "text": "At the end of the day, what felt more important?",
+    "options": [
+      "What I gave",
+      "Team success",
+      "What I received",
+      "What others didn’t do"
+    ],
+    "signals": {
+      "What I gave": "axis2_contribution",
+      "Team success": "axis2_contribution",
+      "What I received": "axis2_entitlement",
+      "What others didn’t do": "axis2_entitlement"
+    },
+    "next": "A2_Q4"
+  },
+
+  {
+    "id": "A2_Q4",
+    "type": "question",
+    "text": "In a small moment today, what did you offer others?",
+    "options": [
+      "Time",
+      "Support",
+      "Ideas",
+      "Nothing in particular"
+    ],
+    "signals": {
+      "Time": "axis2_contribution",
+      "Support": "axis2_contribution",
+      "Ideas": "axis2_contribution",
+      "Nothing in particular": "axis2_entitlement"
+    },
+    "next": "A2_R"
+  },
+
+  {
+    "id": "A2_R",
+    "type": "reflection",
+    "text": "Your answers suggest your focus leaned toward '{axis2.dominant}'. The day often feels different depending on whether we focus on what we give or what we expect — and that shift is usually subtle.",
+    "next": "BRIDGE_2_3"
+  },
+
+  {
+    "id": "BRIDGE_2_3",
+    "type": "bridge",
+    "text": "Let’s zoom out a little and look at the day from a wider perspective.",
+    "next": "A3_Q1"
+  },
+
+  {
+    "id": "A3_Q1",
+    "type": "question",
+    "text": "Who was most present in your mind today?",
+    "options": ["Only myself", "My team", "A colleague", "The customer"],
+    "signals": {
+      "Only myself": "axis3_self",
+      "My team": "axis3_other",
+      "A colleague": "axis3_other",
+      "The customer": "axis3_other"
+    },
+    "next": "A3_BRANCH"
+  },
+
+  {
+    "id": "A3_BRANCH",
+    "type": "decision",
+    "rules": {
+      "self": "A3_Q2_SELF",
+      "other": "A3_Q2_OTHER"
+    }
+  },
+
+  {
+    "id": "A3_Q2_SELF",
+    "type": "question",
+    "text": "When things felt difficult, what pulled your attention the most?",
+    "options": [
+      "My stress",
+      "Things not going my way",
+      "Feeling stuck",
+      "My own pressure"
+    ],
+    "signals": {
+      "My stress": "axis3_self",
+      "Things not going my way": "axis3_self",
+      "Feeling stuck": "axis3_self",
+      "My own pressure": "axis3_self"
+    },
+    "next": "A3_Q3"
+  },
+
+  {
+    "id": "A3_Q2_OTHER",
+    "type": "question",
+    "text": "When things got challenging, what mattered beyond just you?",
+    "options": [
+      "Team outcome",
+      "Helping someone",
+      "Customer impact",
+      "Shared goal"
+    ],
+    "signals": {
+      "Team outcome": "axis3_other",
+      "Helping someone": "axis3_other",
+      "Customer impact": "axis3_other",
+      "Shared goal": "axis3_other"
+    },
+    "next": "A3_Q3"
+  },
+
+  {
+    "id": "A3_Q3",
+    "type": "question",
+    "text": "How did you measure whether the day went well?",
+    "options": [
+      "My comfort",
+      "My results",
+      "Team success",
+      "Value created"
+    ],
+    "signals": {
+      "My comfort": "axis3_self",
+      "My results": "axis3_self",
+      "Team success": "axis3_other",
+      "Value created": "axis3_other"
+    },
+    "next": "A3_Q4"
+  },
+
+  {
+    "id": "A3_Q4",
+    "type": "question",
+    "text": "If you think beyond yourself, who benefited most from your efforts today?",
+    "options": [
+      "No one in particular",
+      "My team",
+      "A specific person",
+      "End users/customers"
+    ],
+    "signals": {
+      "No one in particular": "axis3_self",
+      "My team": "axis3_other",
+      "A specific person": "axis3_other",
+      "End users/customers": "axis3_other"
+    },
+    "next": "A3_R"
+  },
+
+  {
+    "id": "A3_R",
+    "type": "reflection",
+    "text": "When you step back, your attention stayed mostly on '{axis3.dominant}'. Even a small shift outward often changes how the entire day feels.",
+    "next": "FINAL_REFLECTION"
+  },
+
+  {
+    "id": "FINAL_REFLECTION",
+    "type": "reflection",
+    "text": "Looking across your answers, there’s a pattern in how you approached the day — especially in how you handled control, contribution, and where your attention stayed. These patterns don’t change overnight, but noticing them clearly is where change actually begins.",
+    "next": "SUMMARY"
+  },
+
+  {
+    "id": "SUMMARY",
+    "type": "summary",
+    "text": "You described your day as '{A1_Q1}'. Looking back, there were moments of '{axis1.dominant}' control, your focus leaned toward '{axis2.dominant}', and your attention stayed mostly around '{axis3.dominant}'.\n\nNothing here is fixed — it’s simply how today unfolded. If there’s one small shift for tomorrow, it could be this: notice one moment where you usually react automatically, and choose your response instead.",
+    "next": "END"
+  },
+
+  {
+    "id": "END",
+    "type": "end",
+    "text": "That’s it for today. See you tomorrow."
+  }
+]
