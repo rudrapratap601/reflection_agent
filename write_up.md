@@ -1,4 +1,4 @@
-**Design Rationale: Daily Reflection Tree (Advanced Version)**
+## **Design Rationale: Daily Reflection Tree**
 
 This system is a deterministic reflection agent designed to guide users through structured end-of-day thinking using a decision tree. Unlike generative systems, all logic, branching, and reflections are pre-defined. This ensures consistency, interpretability, and full control over the experience while still maintaining a human-like flow.
 
