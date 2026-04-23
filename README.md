@@ -78,8 +78,8 @@ Reflection_Agent/
 │
 ├── agent.py # Main CLI agent
 ├── reflection-tree.json # Decision tree (core logic)
-├── Tree_Diagram.pdf # Visual tree diagram
-├── write-up.pdf # Design explanation
+├── decision_tree.pdf # Visual tree diagram
+├── write-up.md # Design explanation
 
 ```
 
@@ -120,6 +120,8 @@ The system behaves like a:
 ---
 
 ## 👤 Author
+
+***Rudrapratap Sarma***
 
 Built as part of a **Decision Tree Knowledge Engineering Assignment**.
 
